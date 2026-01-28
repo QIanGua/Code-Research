@@ -1,0 +1,28 @@
+# Justfile for modern Python project
+
+# List available commands
+default:
+    @just --list
+
+# Install dependencies
+setup:
+    uv sync
+
+# Run tests
+test:
+    uv run pytest
+
+# Format code
+format:
+    uv run ruff format .
+    uv run ruff check --fix .
+
+# Lint code (check formatting and static analysis)
+lint:
+    uv run ruff check .
+    uv run ruff format --check .
+    uv run mypy .
+
+# Clean build artifacts
+clean:
+    rm -rf .ruff_cache .pytest_cache .mypy_cache dist build
